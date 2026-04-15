@@ -1,22 +1,32 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
+    <!--  Project identity (Maven coordinates) -->
     <groupId>com.frameworkproj</groupId>
     <artifactId>OpenCartFrameworkProj</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+
+    <!-- ================= DEPENDENCIES ================= -->
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+
+        <!--  WebDriverManager (Automatically manages browser drivers like ChromeDriver) -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.1.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+
+        <!--  Selenium Java (Core library for browser automation) -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.21.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+
+        <!--  TestNG (Testing framework for running test cases and assertions) -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -24,30 +34,35 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
+        <!--  Log4j API (Logging interface for application logs) -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.17.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+
+        <!--  Log4j Core (Actual implementation for logging system) -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.17.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+
+        <!--  Commons IO (Utility library for file operations like screenshots, copy files) -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+
+        <!--  Extent Reports (Used to generate HTML test execution reports) -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
             <version>5.0.9</version>
         </dependency>
+
+        <!--  SLF4J Simple (Simple logging implementation for SLF4J API) -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -55,12 +70,73 @@
         </dependency>
 
     </dependencies>
+
+    <!-- ================= BUILD CONFIGURATION ================= -->
     <build>
+
+        <!--  Resource folder (Used for config files, test data, properties files) -->
         <resources>
             <resource>
                 <directory>src/main/java/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
+
+        <!-- ================= MAVEN PLUGINS ================= -->
+        <plugins>
+
+            <!--  Surefire Plugin -->
+            <!-- Used to execute TestNG test cases during mvn test -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+
+                <configuration>
+                    <!--  TestNG suite file execution -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+
+            <!--  Maven Compiler Plugin -->
+            <!-- Used to compile Java code with Java 17 compatibility -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+
+                <configuration>
+                    <!--  Java version used for compilation -->
+                    <release>17</release>
+                </configuration>
+            </plugin>
+
+            <!--  Maven Compiler Plugin (with Annotation Processing support) -->
+            <!-- Used when frameworks like Lombok are used for code generation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+
+                <configuration>
+                    <release>17</release>
+
+                    <!--  Annotation Processor (used for Lombok or similar tools) -->
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.30</version>
+                        </path>
+                    </annotationProcessorPaths>
+
+                </configuration>
+            </plugin>
+
+        </plugins>
+
     </build>
+
 </project>
